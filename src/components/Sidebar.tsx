@@ -1,5 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Store, Package, Heart, History, Trophy, Sparkles, Settings, LogIn } from "lucide-react";
+import { Store, Package, Heart, History, Trophy, Sparkles, Settings, LogIn, LogOut } from "lucide-react";
+import { useAuth } from "@/hooks/use-auth";
 
 const items = [
   { to: "/", label: "Marketplace", icon: Store },
@@ -10,6 +11,7 @@ const items = [
 
 export function Sidebar() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const { user } = useAuth();
   return (
     <aside className="hidden w-64 shrink-0 border-r border-border/60 glass md:flex md:flex-col">
       {/* Logo */}
@@ -67,10 +69,34 @@ export function Sidebar() {
 
       {/* Auth */}
       <div className="border-t border-border/60 p-4">
-        <button className="group flex w-full items-center gap-3 rounded-lg bg-secondary px-3 py-2.5 text-sm font-semibold transition hover:bg-gradient-primary hover:text-primary-foreground">
-          <LogIn className="h-4 w-4" />
-          <span>Sign in with Steam</span>
-        </button>
+        {user ? (
+          <div className="flex items-center gap-3 rounded-lg bg-secondary/60 p-2">
+            {user.avatar ? (
+              <img src={user.avatar} alt="" className="h-9 w-9 rounded-md ring-1 ring-primary/40" />
+            ) : (
+              <div className="h-9 w-9 rounded-md bg-gradient-primary" />
+            )}
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-sm font-semibold">{user.personaName}</p>
+              <p className="truncate font-mono text-[10px] text-muted-foreground">{user.steamId}</p>
+            </div>
+            <a
+              href="/api/auth/logout"
+              title="Sign out"
+              className="rounded-md p-1.5 text-muted-foreground transition hover:bg-destructive/20 hover:text-destructive"
+            >
+              <LogOut className="h-4 w-4" />
+            </a>
+          </div>
+        ) : (
+          <a
+            href="/api/auth/steam"
+            className="group flex w-full items-center gap-3 rounded-lg bg-secondary px-3 py-2.5 text-sm font-semibold transition hover:bg-gradient-primary hover:text-primary-foreground"
+          >
+            <LogIn className="h-4 w-4" />
+            <span>Sign in with Steam</span>
+          </a>
+        )}
         <p className="mt-2 text-center font-mono text-[10px] text-muted-foreground">
           OpenID · Inventory sync
         </p>

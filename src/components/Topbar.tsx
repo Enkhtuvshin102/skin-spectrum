@@ -1,6 +1,8 @@
-import { Search, Bell, Wallet } from "lucide-react";
+import { Search, Bell, Wallet, LogOut } from "lucide-react";
+import { useAuth } from "@/hooks/use-auth";
 
 export function Topbar() {
+  const { user } = useAuth();
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-border/60 glass-strong px-4 md:px-6">
       <div className="relative flex-1 max-w-2xl">
@@ -21,9 +23,26 @@ export function Topbar() {
           <Bell className="h-4 w-4" />
           <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-destructive shadow-[0_0_8px] shadow-destructive" />
         </button>
-        <button className="flex items-center gap-2 rounded-lg bg-gradient-primary px-3 py-2 text-xs font-bold uppercase tracking-wider text-primary-foreground shadow-glow transition hover:opacity-90">
-          Sign in
-        </button>
+        {user ? (
+          <div className="flex items-center gap-2 rounded-lg border border-border bg-secondary/70 px-2 py-1.5">
+            {user.avatar ? (
+              <img src={user.avatar} alt="" className="h-6 w-6 rounded ring-1 ring-primary/40" />
+            ) : (
+              <div className="h-6 w-6 rounded bg-gradient-primary" />
+            )}
+            <span className="hidden text-xs font-semibold sm:inline max-w-[120px] truncate">{user.personaName}</span>
+            <a href="/api/auth/logout" title="Sign out" className="text-muted-foreground hover:text-destructive">
+              <LogOut className="h-3.5 w-3.5" />
+            </a>
+          </div>
+        ) : (
+          <a
+            href="/api/auth/steam"
+            className="flex items-center gap-2 rounded-lg bg-gradient-primary px-3 py-2 text-xs font-bold uppercase tracking-wider text-primary-foreground shadow-glow transition hover:opacity-90"
+          >
+            Sign in with Steam
+          </a>
+        )}
       </div>
     </header>
   );
