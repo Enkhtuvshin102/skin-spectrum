@@ -1,0 +1,163 @@
+import akRedline from "@/assets/skins/ak-redline.png";
+import awpDlore from "@/assets/skins/awp-dlore.png";
+import awpAsiimov from "@/assets/skins/awp-asiimov.png";
+import m4Howl from "@/assets/skins/m4-howl.png";
+import karambit from "@/assets/skins/karambit-doppler.png";
+import glockFade from "@/assets/skins/glock-fade.png";
+import deagleBlaze from "@/assets/skins/deagle-blaze.png";
+import uspKc from "@/assets/skins/usp-kc.png";
+
+export type Wear = "FN" | "MW" | "FT" | "WW" | "BS";
+export type Rarity =
+  | "milspec" | "restricted" | "classified" | "covert" | "knife";
+export type WeaponType =
+  | "Rifle" | "Sniper" | "Pistol" | "SMG" | "Knife" | "Gloves";
+
+export interface Sticker {
+  name: string;
+  wear: number; // 0..1
+}
+
+export interface Skin {
+  id: string;
+  weapon: string;
+  weaponType: WeaponType;
+  skinName: string;
+  image: string;
+  float: number;
+  wear: Wear;
+  pattern: number;
+  stickers: Sticker[];
+  price: number;
+  rarity: Rarity;
+  statTrak?: boolean;
+  souvenir?: boolean;
+  inspectLink: string;
+  seller: string;
+  listedAt: number; // ms ago
+}
+
+export const wearLabel: Record<Wear, string> = {
+  FN: "Factory New",
+  MW: "Minimal Wear",
+  FT: "Field-Tested",
+  WW: "Well-Worn",
+  BS: "Battle-Scarred",
+};
+
+export function wearFromFloat(f: number): Wear {
+  if (f < 0.07) return "FN";
+  if (f < 0.15) return "MW";
+  if (f < 0.38) return "FT";
+  if (f < 0.45) return "WW";
+  return "BS";
+}
+
+const stickers = (...names: string[]): Sticker[] =>
+  names.map((n) => ({ name: n, wear: Math.random() * 0.2 }));
+
+export const SKINS: Skin[] = [
+  {
+    id: "1", weapon: "AK-47", weaponType: "Rifle", skinName: "Redline",
+    image: akRedline, float: 0.1832, wear: "FT", pattern: 661,
+    stickers: stickers("Titan (Holo) | Katowice 2014", "iBUYPOWER (Holo) | Katowice 2014"),
+    price: 89.42, rarity: "classified", statTrak: true,
+    inspectLink: "steam://rungame/730/76561202255233023/+csgo_econ_action_preview",
+    seller: "ProTrader", listedAt: 12 * 60_000,
+  },
+  {
+    id: "2", weapon: "AWP", weaponType: "Sniper", skinName: "Dragon Lore",
+    image: awpDlore, float: 0.0421, wear: "FN", pattern: 420,
+    stickers: stickers("Crown (Foil)", "Katowice 2014"),
+    price: 18420.00, rarity: "covert", souvenir: true,
+    inspectLink: "steam://rungame/730/76561202255233023/+csgo_econ_action_preview",
+    seller: "WhaleAccount", listedAt: 2 * 60 * 60_000,
+  },
+  {
+    id: "3", weapon: "AWP", weaponType: "Sniper", skinName: "Asiimov",
+    image: awpAsiimov, float: 0.2412, wear: "FT", pattern: 87,
+    stickers: stickers("FaZe Clan | Boston 2018"),
+    price: 124.50, rarity: "covert",
+    inspectLink: "steam://rungame/730/76561202255233023/+csgo_econ_action_preview",
+    seller: "skinflip.io", listedAt: 8 * 60_000,
+  },
+  {
+    id: "4", weapon: "M4A4", weaponType: "Rifle", skinName: "Howl",
+    image: m4Howl, float: 0.0689, wear: "FN", pattern: 33,
+    stickers: [],
+    price: 4280.00, rarity: "covert",
+    inspectLink: "steam://rungame/730/76561202255233023/+csgo_econ_action_preview",
+    seller: "ContrabandKing", listedAt: 45 * 60_000,
+  },
+  {
+    id: "5", weapon: "★ Karambit", weaponType: "Knife", skinName: "Doppler Sapphire",
+    image: karambit, float: 0.0098, wear: "FN", pattern: 387,
+    stickers: [],
+    price: 9850.00, rarity: "knife", statTrak: true,
+    inspectLink: "steam://rungame/730/76561202255233023/+csgo_econ_action_preview",
+    seller: "BlueGemHunter", listedAt: 30 * 60_000,
+  },
+  {
+    id: "6", weapon: "Glock-18", weaponType: "Pistol", skinName: "Fade",
+    image: glockFade, float: 0.0125, wear: "FN", pattern: 901,
+    stickers: stickers("Astralis | Berlin 2019"),
+    price: 412.30, rarity: "restricted",
+    inspectLink: "steam://rungame/730/76561202255233023/+csgo_econ_action_preview",
+    seller: "MarketBot", listedAt: 4 * 60_000,
+  },
+  {
+    id: "7", weapon: "Desert Eagle", weaponType: "Pistol", skinName: "Blaze",
+    image: deagleBlaze, float: 0.0312, wear: "FN", pattern: 12,
+    stickers: [],
+    price: 689.00, rarity: "restricted",
+    inspectLink: "steam://rungame/730/76561202255233023/+csgo_econ_action_preview",
+    seller: "RetroSkins", listedAt: 6 * 60 * 60_000,
+  },
+  {
+    id: "8", weapon: "USP-S", weaponType: "Pistol", skinName: "Kill Confirmed",
+    image: uspKc, float: 0.1923, wear: "FT", pattern: 504,
+    stickers: stickers("NaVi (Holo) | Stockholm 2021", "s1mple | Stockholm 2021"),
+    price: 142.80, rarity: "covert", statTrak: true,
+    inspectLink: "steam://rungame/730/76561202255233023/+csgo_econ_action_preview",
+    seller: "s1mpleFan", listedAt: 18 * 60_000,
+  },
+  // Duplicates with float variations to fill grid
+  {
+    id: "9", weapon: "AK-47", weaponType: "Rifle", skinName: "Redline",
+    image: akRedline, float: 0.3812, wear: "FT", pattern: 102,
+    stickers: [], price: 32.10, rarity: "classified",
+    inspectLink: "#", seller: "QuickFlip", listedAt: 60_000,
+  },
+  {
+    id: "10", weapon: "AWP", weaponType: "Sniper", skinName: "Asiimov",
+    image: awpAsiimov, float: 0.4421, wear: "WW", pattern: 211,
+    stickers: [], price: 78.00, rarity: "covert",
+    inspectLink: "#", seller: "BudgetSkins", listedAt: 9 * 60_000,
+  },
+  {
+    id: "11", weapon: "Glock-18", weaponType: "Pistol", skinName: "Fade",
+    image: glockFade, float: 0.0312, wear: "FN", pattern: 412,
+    stickers: stickers("Vitality (Holo)"), price: 389.00, rarity: "restricted",
+    inspectLink: "#", seller: "EuroTrader", listedAt: 22 * 60_000,
+  },
+  {
+    id: "12", weapon: "★ Karambit", weaponType: "Knife", skinName: "Doppler Sapphire",
+    image: karambit, float: 0.0231, wear: "FN", pattern: 102,
+    stickers: [], price: 8420.00, rarity: "knife",
+    inspectLink: "#", seller: "KnifeVault", listedAt: 90 * 60_000,
+  },
+];
+
+export const WEAPON_TYPES: WeaponType[] = ["Rifle", "Sniper", "Pistol", "SMG", "Knife", "Gloves"];
+export const WEARS: Wear[] = ["FN", "MW", "FT", "WW", "BS"];
+
+export function formatPrice(n: number): string {
+  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(n);
+}
+
+export function timeAgo(ms: number): string {
+  if (ms < 60_000) return `${Math.floor(ms / 1000)}s ago`;
+  if (ms < 60 * 60_000) return `${Math.floor(ms / 60_000)}m ago`;
+  if (ms < 24 * 60 * 60_000) return `${Math.floor(ms / (60 * 60_000))}h ago`;
+  return `${Math.floor(ms / (24 * 60 * 60_000))}d ago`;
+}
