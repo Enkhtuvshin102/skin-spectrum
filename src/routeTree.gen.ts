@@ -13,6 +13,9 @@ import { Route as WatchlistRouteImport } from './routes/watchlist'
 import { Route as InventoryRouteImport } from './routes/inventory'
 import { Route as HistoryRouteImport } from './routes/history'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiAuthSteamRouteImport } from './routes/api/auth/steam'
+import { Route as ApiAuthLogoutRouteImport } from './routes/api/auth/logout'
+import { Route as ApiAuthSteamCallbackRouteImport } from './routes/api/auth/steam.callback'
 
 const WatchlistRoute = WatchlistRouteImport.update({
   id: '/watchlist',
@@ -34,18 +37,39 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAuthSteamRoute = ApiAuthSteamRouteImport.update({
+  id: '/api/auth/steam',
+  path: '/api/auth/steam',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAuthLogoutRoute = ApiAuthLogoutRouteImport.update({
+  id: '/api/auth/logout',
+  path: '/api/auth/logout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAuthSteamCallbackRoute = ApiAuthSteamCallbackRouteImport.update({
+  id: '/callback',
+  path: '/callback',
+  getParentRoute: () => ApiAuthSteamRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/history': typeof HistoryRoute
   '/inventory': typeof InventoryRoute
   '/watchlist': typeof WatchlistRoute
+  '/api/auth/logout': typeof ApiAuthLogoutRoute
+  '/api/auth/steam': typeof ApiAuthSteamRouteWithChildren
+  '/api/auth/steam/callback': typeof ApiAuthSteamCallbackRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/history': typeof HistoryRoute
   '/inventory': typeof InventoryRoute
   '/watchlist': typeof WatchlistRoute
+  '/api/auth/logout': typeof ApiAuthLogoutRoute
+  '/api/auth/steam': typeof ApiAuthSteamRouteWithChildren
+  '/api/auth/steam/callback': typeof ApiAuthSteamCallbackRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +77,38 @@ export interface FileRoutesById {
   '/history': typeof HistoryRoute
   '/inventory': typeof InventoryRoute
   '/watchlist': typeof WatchlistRoute
+  '/api/auth/logout': typeof ApiAuthLogoutRoute
+  '/api/auth/steam': typeof ApiAuthSteamRouteWithChildren
+  '/api/auth/steam/callback': typeof ApiAuthSteamCallbackRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/history' | '/inventory' | '/watchlist'
+  fullPaths:
+    | '/'
+    | '/history'
+    | '/inventory'
+    | '/watchlist'
+    | '/api/auth/logout'
+    | '/api/auth/steam'
+    | '/api/auth/steam/callback'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/history' | '/inventory' | '/watchlist'
-  id: '__root__' | '/' | '/history' | '/inventory' | '/watchlist'
+  to:
+    | '/'
+    | '/history'
+    | '/inventory'
+    | '/watchlist'
+    | '/api/auth/logout'
+    | '/api/auth/steam'
+    | '/api/auth/steam/callback'
+  id:
+    | '__root__'
+    | '/'
+    | '/history'
+    | '/inventory'
+    | '/watchlist'
+    | '/api/auth/logout'
+    | '/api/auth/steam'
+    | '/api/auth/steam/callback'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +116,8 @@ export interface RootRouteChildren {
   HistoryRoute: typeof HistoryRoute
   InventoryRoute: typeof InventoryRoute
   WatchlistRoute: typeof WatchlistRoute
+  ApiAuthLogoutRoute: typeof ApiAuthLogoutRoute
+  ApiAuthSteamRoute: typeof ApiAuthSteamRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -99,15 +150,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/auth/steam': {
+      id: '/api/auth/steam'
+      path: '/api/auth/steam'
+      fullPath: '/api/auth/steam'
+      preLoaderRoute: typeof ApiAuthSteamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/auth/logout': {
+      id: '/api/auth/logout'
+      path: '/api/auth/logout'
+      fullPath: '/api/auth/logout'
+      preLoaderRoute: typeof ApiAuthLogoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/auth/steam/callback': {
+      id: '/api/auth/steam/callback'
+      path: '/callback'
+      fullPath: '/api/auth/steam/callback'
+      preLoaderRoute: typeof ApiAuthSteamCallbackRouteImport
+      parentRoute: typeof ApiAuthSteamRoute
+    }
   }
 }
+
+interface ApiAuthSteamRouteChildren {
+  ApiAuthSteamCallbackRoute: typeof ApiAuthSteamCallbackRoute
+}
+
+const ApiAuthSteamRouteChildren: ApiAuthSteamRouteChildren = {
+  ApiAuthSteamCallbackRoute: ApiAuthSteamCallbackRoute,
+}
+
+const ApiAuthSteamRouteWithChildren = ApiAuthSteamRoute._addFileChildren(
+  ApiAuthSteamRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HistoryRoute: HistoryRoute,
   InventoryRoute: InventoryRoute,
   WatchlistRoute: WatchlistRoute,
+  ApiAuthLogoutRoute: ApiAuthLogoutRoute,
+  ApiAuthSteamRoute: ApiAuthSteamRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
