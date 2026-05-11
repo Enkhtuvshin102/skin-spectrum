@@ -54,7 +54,7 @@ export function wearFromFloat(f: number): Wear {
 }
 
 const stickers = (...names: string[]): Sticker[] =>
-  names.map((n) => ({ name: n, wear: Math.random() * 0.2 }));
+  names.map((n, i) => ({ name: n, wear: ((i * 37) % 20) / 100 }));
 
 export const SKINS: Skin[] = [
   {
