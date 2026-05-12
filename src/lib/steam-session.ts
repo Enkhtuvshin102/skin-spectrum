@@ -6,6 +6,10 @@ export type SteamUser = {
   profileUrl: string;
 };
 
+export type SessionData = {
+  user?: SteamUser;
+};
+
 export const sessionConfig = {
   password: process.env.SESSION_SECRET || "dev-insecure-session-secret-change-me-please-32+chars",
   name: "floatiq_session",
