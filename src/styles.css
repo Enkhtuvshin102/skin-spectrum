@@ -102,7 +102,31 @@
 }
 
 .dark {
-  /* same as root - app is dark only */
+  /* same as root - dark mode tokens */
+}
+
+.light {
+  --background: oklch(0.98 0.005 270);
+  --foreground: oklch(0.18 0.03 270);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.03 270);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.03 270);
+  --primary: oklch(0.55 0.22 270);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.94 0.01 270);
+  --secondary-foreground: oklch(0.2 0.03 270);
+  --muted: oklch(0.94 0.01 270);
+  --muted-foreground: oklch(0.45 0.02 270);
+  --accent: oklch(0.55 0.2 230);
+  --accent-foreground: oklch(0.99 0 0);
+  --border: oklch(0.85 0.02 270 / 80%);
+  --input: oklch(0.94 0.01 270);
+  --ring: oklch(0.55 0.22 270);
+  --glass: oklch(1 0 0 / 70%);
+  --shadow-neon: 0 0 24px oklch(0.55 0.22 270 / 18%), 0 0 48px oklch(0.55 0.22 270 / 10%);
+  --shadow-glow: 0 8px 30px oklch(0.55 0.22 260 / 18%);
+  color-scheme: light;
 }
 
 @layer base {
@@ -113,6 +137,7 @@
   html {
     color-scheme: dark;
   }
+  html.light { color-scheme: light; }
 
   body {
     background-color: var(--color-background);
@@ -123,6 +148,12 @@
       radial-gradient(ellipse 60% 40% at 90% 100%, oklch(0.25 0.15 230 / 25%), transparent);
     background-attachment: fixed;
     min-height: 100vh;
+  }
+
+  html.light body {
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -20%, oklch(0.85 0.1 280 / 35%), transparent),
+      radial-gradient(ellipse 60% 40% at 90% 100%, oklch(0.85 0.12 230 / 25%), transparent);
   }
 
   ::selection {
