@@ -15,6 +15,7 @@ import { Route as HistoryRouteImport } from './routes/history'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiAuthSteamRouteImport } from './routes/api/auth/steam'
 import { Route as ApiAuthLogoutRouteImport } from './routes/api/auth/logout'
+import { Route as ApiPublicInventorySteamIdRouteImport } from './routes/api/public/inventory.$steamId'
 import { Route as ApiAuthSteamCallbackRouteImport } from './routes/api/auth/steam.callback'
 
 const WatchlistRoute = WatchlistRouteImport.update({
@@ -47,6 +48,12 @@ const ApiAuthLogoutRoute = ApiAuthLogoutRouteImport.update({
   path: '/api/auth/logout',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicInventorySteamIdRoute =
+  ApiPublicInventorySteamIdRouteImport.update({
+    id: '/api/public/inventory/$steamId',
+    path: '/api/public/inventory/$steamId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiAuthSteamCallbackRoute = ApiAuthSteamCallbackRouteImport.update({
   id: '/callback',
   path: '/callback',
@@ -61,6 +68,7 @@ export interface FileRoutesByFullPath {
   '/api/auth/logout': typeof ApiAuthLogoutRoute
   '/api/auth/steam': typeof ApiAuthSteamRouteWithChildren
   '/api/auth/steam/callback': typeof ApiAuthSteamCallbackRoute
+  '/api/public/inventory/$steamId': typeof ApiPublicInventorySteamIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -70,6 +78,7 @@ export interface FileRoutesByTo {
   '/api/auth/logout': typeof ApiAuthLogoutRoute
   '/api/auth/steam': typeof ApiAuthSteamRouteWithChildren
   '/api/auth/steam/callback': typeof ApiAuthSteamCallbackRoute
+  '/api/public/inventory/$steamId': typeof ApiPublicInventorySteamIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,6 +89,7 @@ export interface FileRoutesById {
   '/api/auth/logout': typeof ApiAuthLogoutRoute
   '/api/auth/steam': typeof ApiAuthSteamRouteWithChildren
   '/api/auth/steam/callback': typeof ApiAuthSteamCallbackRoute
+  '/api/public/inventory/$steamId': typeof ApiPublicInventorySteamIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +101,7 @@ export interface FileRouteTypes {
     | '/api/auth/logout'
     | '/api/auth/steam'
     | '/api/auth/steam/callback'
+    | '/api/public/inventory/$steamId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +111,7 @@ export interface FileRouteTypes {
     | '/api/auth/logout'
     | '/api/auth/steam'
     | '/api/auth/steam/callback'
+    | '/api/public/inventory/$steamId'
   id:
     | '__root__'
     | '/'
@@ -109,6 +121,7 @@ export interface FileRouteTypes {
     | '/api/auth/logout'
     | '/api/auth/steam'
     | '/api/auth/steam/callback'
+    | '/api/public/inventory/$steamId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -118,6 +131,7 @@ export interface RootRouteChildren {
   WatchlistRoute: typeof WatchlistRoute
   ApiAuthLogoutRoute: typeof ApiAuthLogoutRoute
   ApiAuthSteamRoute: typeof ApiAuthSteamRouteWithChildren
+  ApiPublicInventorySteamIdRoute: typeof ApiPublicInventorySteamIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -164,6 +178,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthLogoutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/inventory/$steamId': {
+      id: '/api/public/inventory/$steamId'
+      path: '/api/public/inventory/$steamId'
+      fullPath: '/api/public/inventory/$steamId'
+      preLoaderRoute: typeof ApiPublicInventorySteamIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/auth/steam/callback': {
       id: '/api/auth/steam/callback'
       path: '/callback'
@@ -193,6 +214,7 @@ const rootRouteChildren: RootRouteChildren = {
   WatchlistRoute: WatchlistRoute,
   ApiAuthLogoutRoute: ApiAuthLogoutRoute,
   ApiAuthSteamRoute: ApiAuthSteamRouteWithChildren,
+  ApiPublicInventorySteamIdRoute: ApiPublicInventorySteamIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
