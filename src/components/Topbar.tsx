@@ -1,10 +1,25 @@
-import { Search, Bell, Wallet, LogOut, Sun, Moon } from "lucide-react";
+import { Search, Bell, Wallet, LogOut, Palette, Moon, Terminal, Sparkles, Check } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
-import { useTheme } from "@/hooks/use-theme";
+import { useTheme, type Theme } from "@/hooks/use-theme";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+const THEME_META: Record<Theme, { label: string; icon: typeof Moon; desc: string }> = {
+  dark: { label: "Dark", icon: Moon, desc: "Default neon dark" },
+  legacy: { label: "Legacy", icon: Terminal, desc: "Classic CS:GO orange" },
+  dynamic: { label: "Dynamic", icon: Sparkles, desc: "Animated shifting hue" },
+};
 
 export function Topbar() {
   const { user } = useAuth();
-  const { theme, toggle } = useTheme();
+  const { theme, setTheme, mounted, themes } = useTheme();
+  const Active = THEME_META[theme].icon;
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-border/60 glass-strong px-4 md:px-6">
       <div className="relative flex-1 max-w-2xl">
@@ -21,14 +36,40 @@ export function Topbar() {
           <Wallet className="h-3.5 w-3.5 text-neon-cyan" />
           <span className="text-foreground">$0.00</span>
         </button>
-        <button
-          onClick={toggle}
-          title={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
-          aria-label="Toggle theme"
-          className="rounded-lg border border-border bg-secondary p-2 text-muted-foreground transition hover:text-foreground"
-        >
-          {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-        </button>
+        <DropdownMenu>
+          <DropdownMenuTrigger
+            aria-label="Choose theme"
+            suppressHydrationWarning
+            className="rounded-lg border border-border bg-secondary p-2 text-muted-foreground transition hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary/40"
+          >
+            {mounted ? <Active className="h-4 w-4" /> : <Palette className="h-4 w-4" />}
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-56">
+            <DropdownMenuLabel className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+              Choose Theme
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            {themes.map((t) => {
+              const Meta = THEME_META[t];
+              const Icon = Meta.icon;
+              const active = mounted && theme === t;
+              return (
+                <DropdownMenuItem
+                  key={t}
+                  onClick={() => setTheme(t)}
+                  className="flex cursor-pointer items-center gap-3 py-2"
+                >
+                  <Icon className="h-4 w-4 text-primary" />
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold leading-none">{Meta.label}</p>
+                    <p className="mt-1 text-[11px] text-muted-foreground">{Meta.desc}</p>
+                  </div>
+                  {active && <Check className="h-3.5 w-3.5 text-primary" />}
+                </DropdownMenuItem>
+              );
+            })}
+          </DropdownMenuContent>
+        </DropdownMenu>
         <button className="relative rounded-lg border border-border bg-secondary p-2 text-muted-foreground transition hover:text-foreground">
           <Bell className="h-4 w-4" />
           <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-destructive shadow-[0_0_8px] shadow-destructive" />
