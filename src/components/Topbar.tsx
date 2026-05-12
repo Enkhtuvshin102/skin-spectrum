@@ -21,6 +21,14 @@ export function Topbar() {
           <Wallet className="h-3.5 w-3.5 text-neon-cyan" />
           <span className="text-foreground">$0.00</span>
         </button>
+        <button
+          onClick={toggle}
+          title={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+          aria-label="Toggle theme"
+          className="rounded-lg border border-border bg-secondary p-2 text-muted-foreground transition hover:text-foreground"
+        >
+          {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+        </button>
         <button className="relative rounded-lg border border-border bg-secondary p-2 text-muted-foreground transition hover:text-foreground">
           <Bell className="h-4 w-4" />
           <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-destructive shadow-[0_0_8px] shadow-destructive" />
