@@ -105,28 +105,79 @@
   /* same as root - dark mode tokens */
 }
 
-.light {
-  --background: oklch(0.98 0.005 270);
-  --foreground: oklch(0.18 0.03 270);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.03 270);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.03 270);
-  --primary: oklch(0.55 0.22 270);
-  --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.94 0.01 270);
-  --secondary-foreground: oklch(0.2 0.03 270);
-  --muted: oklch(0.94 0.01 270);
-  --muted-foreground: oklch(0.45 0.02 270);
-  --accent: oklch(0.55 0.2 230);
-  --accent-foreground: oklch(0.99 0 0);
-  --border: oklch(0.85 0.02 270 / 80%);
-  --input: oklch(0.94 0.01 270);
-  --ring: oklch(0.55 0.22 270);
-  --glass: oklch(1 0 0 / 70%);
-  --shadow-neon: 0 0 24px oklch(0.55 0.22 270 / 18%), 0 0 48px oklch(0.55 0.22 270 / 10%);
-  --shadow-glow: 0 8px 30px oklch(0.55 0.22 260 / 18%);
-  color-scheme: light;
+/* Legacy: classic CS:GO orange/black terminal vibe */
+.legacy {
+  --background: oklch(0.12 0.015 60);
+  --foreground: oklch(0.92 0.04 80);
+  --card: oklch(0.16 0.02 60);
+  --card-foreground: oklch(0.92 0.04 80);
+  --popover: oklch(0.15 0.02 60);
+  --popover-foreground: oklch(0.92 0.04 80);
+  --primary: oklch(0.72 0.19 55);
+  --primary-foreground: oklch(0.12 0.02 60);
+  --secondary: oklch(0.2 0.025 60);
+  --secondary-foreground: oklch(0.92 0.04 80);
+  --muted: oklch(0.18 0.02 60);
+  --muted-foreground: oklch(0.62 0.05 70);
+  --accent: oklch(0.7 0.18 40);
+  --accent-foreground: oklch(0.12 0.02 60);
+  --border: oklch(0.32 0.05 55 / 65%);
+  --input: oklch(0.2 0.03 60);
+  --ring: oklch(0.72 0.19 55);
+  --neon-blue: oklch(0.7 0.16 50);
+  --neon-purple: oklch(0.72 0.19 55);
+  --neon-cyan: oklch(0.85 0.14 75);
+  --gradient-primary: linear-gradient(135deg, oklch(0.72 0.19 55), oklch(0.6 0.2 30));
+  --shadow-neon: 0 0 24px oklch(0.72 0.19 55 / 30%), 0 0 48px oklch(0.72 0.19 55 / 15%);
+  --glass: oklch(0.18 0.025 60 / 65%);
+  color-scheme: dark;
+}
+
+/* Dynamic: animated shifting hue across the whole palette */
+.dynamic {
+  --background: oklch(0.14 0.04 var(--hue, 270));
+  --foreground: oklch(0.97 0.02 var(--hue, 270));
+  --card: oklch(0.18 0.05 var(--hue, 270));
+  --card-foreground: oklch(0.97 0.02 var(--hue, 270));
+  --popover: oklch(0.17 0.05 var(--hue, 270));
+  --popover-foreground: oklch(0.97 0.02 var(--hue, 270));
+  --primary: oklch(0.72 0.24 var(--hue, 270));
+  --primary-foreground: oklch(0.1 0.02 var(--hue, 270));
+  --secondary: oklch(0.24 0.06 var(--hue, 270));
+  --secondary-foreground: oklch(0.97 0.02 var(--hue, 270));
+  --muted: oklch(0.22 0.05 var(--hue, 270));
+  --muted-foreground: oklch(0.7 0.05 var(--hue, 270));
+  --accent: oklch(0.72 0.22 calc(var(--hue, 270) + 60));
+  --accent-foreground: oklch(0.1 0.02 var(--hue, 270));
+  --border: oklch(0.32 0.08 var(--hue, 270) / 60%);
+  --input: oklch(0.24 0.06 var(--hue, 270));
+  --ring: oklch(0.72 0.24 var(--hue, 270));
+  --neon-blue: oklch(0.72 0.22 calc(var(--hue, 270) + 40));
+  --neon-purple: oklch(0.7 0.25 var(--hue, 270));
+  --neon-cyan: oklch(0.85 0.18 calc(var(--hue, 270) - 60));
+  --gradient-primary: linear-gradient(
+    135deg,
+    oklch(0.7 0.25 var(--hue, 270)),
+    oklch(0.72 0.22 calc(var(--hue, 270) + 60))
+  );
+  --shadow-neon: 0 0 30px oklch(0.7 0.25 var(--hue, 270) / 35%), 0 0 60px oklch(0.7 0.25 var(--hue, 270) / 18%);
+  --glass: oklch(0.2 0.05 var(--hue, 270) / 60%);
+  color-scheme: dark;
+  animation: hue-cycle 18s linear infinite;
+}
+
+@property --hue {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 270;
+}
+
+@keyframes hue-cycle {
+  0%   { --hue: 270; }
+  25%  { --hue: 200; }
+  50%  { --hue: 140; }
+  75%  { --hue: 30; }
+  100% { --hue: 270; }
 }
 
 @layer base {
@@ -137,7 +188,6 @@
   html {
     color-scheme: dark;
   }
-  html.light { color-scheme: light; }
 
   body {
     background-color: var(--color-background);
@@ -150,10 +200,16 @@
     min-height: 100vh;
   }
 
-  html.light body {
+  html.legacy body {
     background-image:
-      radial-gradient(ellipse 80% 50% at 50% -20%, oklch(0.85 0.1 280 / 35%), transparent),
-      radial-gradient(ellipse 60% 40% at 90% 100%, oklch(0.85 0.12 230 / 25%), transparent);
+      radial-gradient(ellipse 80% 50% at 50% -20%, oklch(0.3 0.15 50 / 35%), transparent),
+      radial-gradient(ellipse 60% 40% at 90% 100%, oklch(0.25 0.12 30 / 25%), transparent);
+  }
+
+  html.dynamic body {
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -20%, oklch(0.3 0.18 var(--hue, 270) / 45%), transparent),
+      radial-gradient(ellipse 60% 40% at 90% 100%, oklch(0.3 0.18 calc(var(--hue, 270) + 60) / 30%), transparent);
   }
 
   ::selection {

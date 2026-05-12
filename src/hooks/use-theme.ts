@@ -1,22 +1,25 @@
 import { useEffect, useState, useCallback } from "react";
 
-export type Theme = "dark" | "light";
+export type Theme = "dark" | "legacy" | "dynamic";
 const KEY = "floatiq-theme";
+const THEMES: Theme[] = ["dark", "legacy", "dynamic"];
 
 function applyTheme(t: Theme) {
   const html = document.documentElement;
-  html.classList.remove("dark", "light");
+  html.classList.remove("dark", "legacy", "dynamic");
   html.classList.add(t);
 }
 
 export function useTheme() {
   const [theme, setThemeState] = useState<Theme>("dark");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const stored = (typeof localStorage !== "undefined" && localStorage.getItem(KEY)) as Theme | null;
-    const initial: Theme = stored === "light" || stored === "dark" ? stored : "dark";
+    const initial: Theme = stored && THEMES.includes(stored) ? stored : "dark";
     setThemeState(initial);
     applyTheme(initial);
+    setMounted(true);
   }, []);
 
   const setTheme = useCallback((t: Theme) => {
@@ -25,9 +28,5 @@ export function useTheme() {
     try { localStorage.setItem(KEY, t); } catch {}
   }, []);
 
-  const toggle = useCallback(() => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  }, [theme, setTheme]);
-
-  return { theme, setTheme, toggle };
+  return { theme, setTheme, mounted, themes: THEMES };
 }
