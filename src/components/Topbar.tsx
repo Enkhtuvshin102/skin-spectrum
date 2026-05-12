@@ -1,8 +1,10 @@
-import { Search, Bell, Wallet, LogOut } from "lucide-react";
+import { Search, Bell, Wallet, LogOut, Sun, Moon } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
+import { useTheme } from "@/hooks/use-theme";
 
 export function Topbar() {
   const { user } = useAuth();
+  const { theme, toggle } = useTheme();
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-border/60 glass-strong px-4 md:px-6">
       <div className="relative flex-1 max-w-2xl">
