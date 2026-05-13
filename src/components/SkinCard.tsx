@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Heart } from "lucide-react";
 import { Skin, formatPrice, timeAgo, wearLabel } from "@/lib/skins";
+import type { SteamPriceData } from "@/lib/types";
 import { FloatBar } from "./FloatBar";
 
 const rarityClass: Record<string, string> = {
