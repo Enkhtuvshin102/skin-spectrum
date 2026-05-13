@@ -44,7 +44,7 @@ export function FeaturedCarousel({ skins, onSelect }: { skins: Skin[]; onSelect:
               </div>
               <p className="mt-1 truncate text-[10px] font-mono uppercase text-muted-foreground">{s.weapon}</p>
               <p className="truncate text-xs font-bold">{s.skinName}</p>
-              <p className="mt-1 font-mono text-sm font-bold neon-text">{formatPrice(s.price)}</p>
+              <p className="mt-1 font-mono text-sm font-bold neon-text">{formatPrice(map.get(s.marketHashName)?.lowestPrice ?? null)}</p>
             </motion.button>
           ))}
         </div>
