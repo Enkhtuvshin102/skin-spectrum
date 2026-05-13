@@ -7,6 +7,7 @@ import { InspectModal } from "@/components/InspectModal";
 import { FilterPanel, Filters, defaultFilters } from "@/components/FilterPanel";
 import { FeaturedCarousel } from "@/components/FeaturedCarousel";
 import { Activity, Flame, Users } from "lucide-react";
+import { usePrices } from "@/hooks/use-prices";
 
 export const Route = createFileRoute("/")({
   component: Marketplace,
@@ -17,22 +18,28 @@ function Marketplace() {
   const [selected, setSelected] = useState<Skin | null>(null);
   const [sort, setSort] = useState<"recent" | "price-asc" | "price-desc" | "float-asc">("recent");
 
+  const { map: prices } = usePrices(SKINS.map((s) => s.marketHashName));
+
   const filtered = useMemo(() => {
     const list = SKINS.filter((s) => {
+      const p = prices.get(s.marketHashName)?.lowestPrice;
       if (s.float < filters.floatMin || s.float > filters.floatMax) return false;
-      if (s.price < filters.priceMin || s.price > filters.priceMax) return false;
+      // Filter by price only when we have live data; otherwise show the listing.
+      if (p != null && (p < filters.priceMin || p > filters.priceMax)) return false;
       if (filters.weaponTypes.length && !filters.weaponTypes.includes(s.weaponType)) return false;
       if (filters.wears.length && !filters.wears.includes(s.wear)) return false;
       if (s.stickers.length < filters.minStickers) return false;
       return true;
     });
     return [...list].sort((a, b) => {
-      if (sort === "price-asc") return a.price - b.price;
-      if (sort === "price-desc") return b.price - a.price;
+      const pa = prices.get(a.marketHashName)?.lowestPrice ?? Infinity;
+      const pb = prices.get(b.marketHashName)?.lowestPrice ?? Infinity;
+      if (sort === "price-asc") return pa - pb;
+      if (sort === "price-desc") return pb - pa;
       if (sort === "float-asc") return a.float - b.float;
       return a.listedAt - b.listedAt;
     });
-  }, [filters, sort]);
+  }, [filters, sort, prices]);
 
   return (
     <div className="space-y-6">
@@ -81,7 +88,7 @@ function Marketplace() {
               className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4"
             >
               {filtered.map((s) => (
-                <SkinCard key={s.id} skin={s} onClick={() => setSelected(s)} />
+                <SkinCard key={s.id} skin={s} price={prices.get(s.marketHashName)} onClick={() => setSelected(s)} />
               ))}
             </motion.div>
           )}
