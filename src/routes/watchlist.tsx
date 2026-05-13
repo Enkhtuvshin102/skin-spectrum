@@ -4,6 +4,7 @@ import { useState } from "react";
 import { SKINS, Skin } from "@/lib/skins";
 import { SkinCard } from "@/components/SkinCard";
 import { InspectModal } from "@/components/InspectModal";
+import { usePrices } from "@/hooks/use-prices";
 
 export const Route = createFileRoute("/watchlist")({
   component: WatchlistPage,
@@ -12,6 +13,7 @@ export const Route = createFileRoute("/watchlist")({
 function WatchlistPage() {
   const [selected, setSelected] = useState<Skin | null>(null);
   const watch = SKINS.slice(2, 6);
+  const { map: prices } = usePrices(watch.map((s) => s.marketHashName));
 
   return (
     <div className="space-y-6">
@@ -25,7 +27,7 @@ function WatchlistPage() {
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
         {watch.map((s) => (
-          <SkinCard key={s.id} skin={s} onClick={() => setSelected(s)} />
+          <SkinCard key={s.id} skin={s} price={prices.get(s.marketHashName)} onClick={() => setSelected(s)} />
         ))}
       </div>
 

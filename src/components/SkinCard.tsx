@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Heart } from "lucide-react";
 import { Skin, formatPrice, timeAgo, wearLabel } from "@/lib/skins";
+import type { SteamPriceData } from "@/lib/types";
 import { FloatBar } from "./FloatBar";
 
 const rarityClass: Record<string, string> = {
@@ -19,7 +20,7 @@ const rarityBar: Record<string, string> = {
   knife: "bg-rarity-knife",
 };
 
-export function SkinCard({ skin, onClick }: { skin: Skin; onClick?: () => void }) {
+export function SkinCard({ skin, price, onClick }: { skin: Skin; price?: SteamPriceData; onClick?: () => void }) {
   return (
     <motion.button
       onClick={onClick}
@@ -106,9 +107,11 @@ export function SkinCard({ skin, onClick }: { skin: Skin; onClick?: () => void }
 
         <div className="mt-1 flex items-end justify-between border-t border-border/40 pt-3">
           <div>
-            <p className="text-[10px] text-muted-foreground">Listed {timeAgo(skin.listedAt)}</p>
+            <p className="text-[10px] text-muted-foreground">
+              {price?.volume != null ? `${price.volume} sold (24h)` : `Listed ${timeAgo(skin.listedAt)}`}
+            </p>
             <p className="font-mono text-lg font-bold neon-text leading-tight">
-              {formatPrice(skin.price)}
+              {formatPrice(price?.lowestPrice ?? null)}
             </p>
           </div>
           <a

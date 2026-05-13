@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import { TrendingUp } from "lucide-react";
 import { Skin, formatPrice } from "@/lib/skins";
+import { usePrices } from "@/hooks/use-prices";
 
 export function FeaturedCarousel({ skins, onSelect }: { skins: Skin[]; onSelect: (s: Skin) => void }) {
+  const { map } = usePrices(skins.map((s) => s.marketHashName));
   return (
     <div className="relative overflow-hidden rounded-2xl border border-border/60 glass-strong">
       <div className="absolute inset-0 grid-bg opacity-40" />
@@ -42,7 +44,7 @@ export function FeaturedCarousel({ skins, onSelect }: { skins: Skin[]; onSelect:
               </div>
               <p className="mt-1 truncate text-[10px] font-mono uppercase text-muted-foreground">{s.weapon}</p>
               <p className="truncate text-xs font-bold">{s.skinName}</p>
-              <p className="mt-1 font-mono text-sm font-bold neon-text">{formatPrice(s.price)}</p>
+              <p className="mt-1 font-mono text-sm font-bold neon-text">{formatPrice(map.get(s.marketHashName)?.lowestPrice ?? null)}</p>
             </motion.button>
           ))}
         </div>
