@@ -146,6 +146,7 @@ function normalize(asset: SteamAsset, desc: SteamDescription, steamId: string): 
     image: STEAM_IMG + desc.icon_url,
     exterior,
     wearCode,
+    float: null,
     rarity,
     rarityColorHex: desc.name_color ? `#${desc.name_color}` : (rarityTag?.color ? `#${rarityTag.color}` : null),
     tradable: desc.tradable === 1,
