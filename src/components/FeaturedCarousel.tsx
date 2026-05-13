@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import { TrendingUp } from "lucide-react";
 import { Skin, formatPrice } from "@/lib/skins";
+import { usePrices } from "@/hooks/use-prices";
 
 export function FeaturedCarousel({ skins, onSelect }: { skins: Skin[]; onSelect: (s: Skin) => void }) {
+  const { map } = usePrices(skins.map((s) => s.marketHashName));
   return (
     <div className="relative overflow-hidden rounded-2xl border border-border/60 glass-strong">
       <div className="absolute inset-0 grid-bg opacity-40" />
