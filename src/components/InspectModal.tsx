@@ -57,10 +57,14 @@ export function InspectModal({ skin, onClose }: { skin: Skin | null; onClose: ()
                 <p className="mt-1 text-sm text-muted-foreground">{wearLabel[skin.wear]}</p>
               </div>
 
-              {/* Price */}
+              {/* Price (live) */}
               <div className="rounded-xl border border-border bg-card/60 p-4">
-                <p className="text-xs uppercase text-muted-foreground">Buy now price</p>
-                <p className="font-mono text-3xl font-bold neon-text">{formatPrice(skin.price)}</p>
+                <p className="text-xs uppercase text-muted-foreground">Steam Market · Lowest</p>
+                <p className="font-mono text-3xl font-bold neon-text">{formatPrice(price?.lowestPrice ?? null)}</p>
+                <div className="mt-1 flex items-center justify-between font-mono text-[10px] text-muted-foreground">
+                  <span>Median {formatPrice(price?.medianPrice ?? null)}</span>
+                  <span>{price?.volume != null ? `${price.volume} sold (24h)` : "—"}</span>
+                </div>
               </div>
 
               {/* Stats grid */}
