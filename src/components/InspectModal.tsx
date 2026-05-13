@@ -2,8 +2,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ExternalLink, Heart, ShoppingCart } from "lucide-react";
 import { Skin, formatPrice, wearLabel } from "@/lib/skins";
 import { FloatBar } from "./FloatBar";
+import { usePrices } from "@/hooks/use-prices";
 
 export function InspectModal({ skin, onClose }: { skin: Skin | null; onClose: () => void }) {
+  const { map } = usePrices(skin ? [skin.marketHashName] : []);
+  const price = skin ? map.get(skin.marketHashName) : undefined;
   return (
     <AnimatePresence>
       {skin && (
