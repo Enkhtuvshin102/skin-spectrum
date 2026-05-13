@@ -2,44 +2,17 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { useSession } from "@tanstack/react-start/server";
 import { sessionConfig, type SessionData } from "@/lib/steam-session";
+import type {
+  InventoryResponse,
+  SteamInventoryItem,
+  StickerData,
+} from "@/lib/types";
 
-export type InventoryRarity =
-  | "consumer" | "industrial" | "milspec" | "restricted"
-  | "classified" | "covert" | "knife";
-
-export interface InventorySticker {
-  name: string;
-  wear: number; // 0..1, undefined precision from Steam → 0
-}
-
-export interface InventoryItem {
-  assetId: string;
-  classId: string;
-  instanceId: string;
-  marketHashName: string;
-  name: string;
-  weapon: string;        // "AK-47" / "★ Karambit" / item type
-  skinName: string;      // "Redline" or full name if not parseable
-  image: string;         // full https URL
-  exterior: string | null;        // "Factory New" etc.
-  wearCode: "FN" | "MW" | "FT" | "WW" | "BS" | null;
-  rarity: InventoryRarity;
-  rarityColorHex: string | null;  // from Steam name_color
-  tradable: boolean;
-  marketable: boolean;
-  statTrak: boolean;
-  souvenir: boolean;
-  stickers: InventorySticker[];
-  inspectLink: string | null;
-  type: string;                   // raw Steam type tag, e.g. "Covert Rifle"
-}
-
-export interface InventoryResponse {
-  steamId: string;
-  total: number;
-  items: InventoryItem[];
-  fetchedAt: number;
-}
+export type InventoryRarity = SteamInventoryItem["rarity"];
+export type InventorySticker = StickerData;
+// Back-compat alias for existing imports.
+export type InventoryItem = SteamInventoryItem;
+export type { InventoryResponse };
 
 const STEAM_IMG = "https://community.cloudflare.steamstatic.com/economy/image/";
 
