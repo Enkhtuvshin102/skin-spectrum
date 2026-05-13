@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowDownLeft, ArrowUpRight, History } from "lucide-react";
 import { SKINS, formatPrice, timeAgo } from "@/lib/skins";
+import { usePrices } from "@/hooks/use-prices";
 
 export const Route = createFileRoute("/history")({
   component: HistoryPage,
@@ -13,7 +14,8 @@ const trades = SKINS.map((s, i) => ({
 }));
 
 function HistoryPage() {
-  return (
+  const { map: prices } = usePrices(trades.map((t) => t.marketHashName));
+
     <div className="space-y-6">
       <div>
         <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-neon-cyan flex items-center gap-2">
