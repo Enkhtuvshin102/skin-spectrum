@@ -3,6 +3,7 @@ import { ExternalLink, Heart } from "lucide-react";
 import { Skin, formatPrice, timeAgo, wearLabel } from "@/lib/skins";
 import type { SteamPriceData } from "@/lib/types";
 import { FloatBar } from "./FloatBar";
+import { SteamImage } from "./SteamImage";
 
 const rarityClass: Record<string, string> = {
   milspec: "from-rarity-milspec/40 to-transparent",
