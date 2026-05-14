@@ -40,13 +40,14 @@ export function InspectModal({ skin, onClose }: { skin: Skin | null; onClose: ()
             {/* Preview */}
             <div className="relative flex aspect-[5/3] items-center justify-center grid-bg p-10 md:aspect-auto">
               <div className="absolute inset-0 bg-gradient-to-br from-neon-purple/20 via-transparent to-neon-blue/20" />
-              <motion.img
-                src={skin.image}
+              <SteamImage
+                src={imageUrl}
                 alt={skin.skinName}
-                initial={{ scale: 0.85, rotate: -4 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ duration: 0.6 }}
-                className="relative max-h-[420px] w-full object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.7)] animate-float"
+                loading="eager"
+                fetchpriority="high"
+                className="relative max-h-[420px] w-full animate-float"
+                imgClassName="drop-shadow-[0_20px_40px_rgba(0,0,0,0.7)]"
+                sizes="(min-width: 768px) 50vw, 100vw"
               />
             </div>
 
