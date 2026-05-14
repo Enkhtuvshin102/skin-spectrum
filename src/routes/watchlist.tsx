@@ -15,6 +15,7 @@ function WatchlistPage() {
   const [selected, setSelected] = useState<Skin | null>(null);
   const watch = SKINS.slice(2, 6);
   const { map: prices } = usePrices(watch.map((s) => s.marketHashName));
+  const { map: images } = useSteamImages(watch.map((s) => s.marketHashName));
 
   return (
     <div className="space-y-6">
