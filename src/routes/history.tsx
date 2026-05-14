@@ -56,7 +56,7 @@ function HistoryPage() {
                 </td>
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-3">
-                    <img src={t.image} alt="" className="h-8 w-12 object-contain" />
+                    <SteamImage src={images.get(t.marketHashName)} alt={t.skinName} className="h-8 w-12 shrink-0" />
                     <div className="min-w-0">
                       <p className="truncate font-mono text-[10px] uppercase text-muted-foreground">{t.weapon}</p>
                       <p className="truncate text-xs font-bold">{t.skinName}</p>
