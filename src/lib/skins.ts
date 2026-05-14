@@ -4,15 +4,6 @@
 // NOTE: prices are NOT stored here — they are fetched live via src/lib/pricing.ts
 // and rendered through the usePrices() hook.
 
-import akRedline from "@/assets/skins/ak-redline.png";
-import awpDlore from "@/assets/skins/awp-dlore.png";
-import awpAsiimov from "@/assets/skins/awp-asiimov.png";
-import m4Howl from "@/assets/skins/m4-howl.png";
-import karambit from "@/assets/skins/karambit-doppler.png";
-import glockFade from "@/assets/skins/glock-fade.png";
-import deagleBlaze from "@/assets/skins/deagle-blaze.png";
-import uspKc from "@/assets/skins/usp-kc.png";
-
 export type Wear = "FN" | "MW" | "FT" | "WW" | "BS";
 export type Rarity =
   | "milspec" | "restricted" | "classified" | "covert" | "knife";
