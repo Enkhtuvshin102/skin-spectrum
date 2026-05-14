@@ -21,7 +21,7 @@ export interface Skin {
   weapon: string;
   weaponType: WeaponType;
   skinName: string;
-  image: string;
+  
   float: number;
   wear: Wear;
   pattern: number;
