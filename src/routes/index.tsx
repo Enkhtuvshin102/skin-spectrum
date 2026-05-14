@@ -20,6 +20,7 @@ function Marketplace() {
   const [sort, setSort] = useState<"recent" | "price-asc" | "price-desc" | "float-asc">("recent");
 
   const { map: prices } = usePrices(SKINS.map((s) => s.marketHashName));
+  const { map: images } = useSteamImages(SKINS.map((s) => s.marketHashName));
 
   const filtered = useMemo(() => {
     const list = SKINS.filter((s) => {
