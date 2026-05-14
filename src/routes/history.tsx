@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowDownLeft, ArrowUpRight, History } from "lucide-react";
 import { SKINS, formatPrice, timeAgo } from "@/lib/skins";
 import { usePrices } from "@/hooks/use-prices";
+import { useSteamImages } from "@/hooks/use-steam-images";
+import { SteamImage } from "@/components/SteamImage";
 
 export const Route = createFileRoute("/history")({
   component: HistoryPage,
@@ -14,7 +16,9 @@ const trades = SKINS.map((s, i) => ({
 }));
 
 function HistoryPage() {
-  const { map: prices } = usePrices(trades.map((t) => t.marketHashName));
+  const names = trades.map((t) => t.marketHashName);
+  const { map: prices } = usePrices(names);
+  const { map: images } = useSteamImages(names);
 
   return (
     <div className="space-y-6">
