@@ -58,11 +58,12 @@ export function SkinCard({ skin, price, imageUrl, onClick }: { skin: Skin; price
 
       {/* Image */}
       <div className="relative flex aspect-[5/3] items-center justify-center px-6 pt-6 pb-2">
-        <img
-          src={skin.image}
+        <SteamImage
+          src={imageUrl}
           alt={`${skin.weapon} ${skin.skinName}`}
-          loading="lazy"
-          className="h-full w-full object-contain drop-shadow-[0_8px_20px_rgba(0,0,0,0.6)] transition-transform duration-500 group-hover:scale-110 group-hover:rotate-[-2deg]"
+          className="h-full w-full"
+          imgClassName="drop-shadow-[0_8px_20px_rgba(0,0,0,0.6)] transition-transform duration-500 group-hover:scale-110 group-hover:rotate-[-2deg]"
+          sizes="(min-width: 1536px) 25vw, (min-width: 1280px) 33vw, (min-width: 640px) 50vw, 100vw"
         />
       </div>
 
