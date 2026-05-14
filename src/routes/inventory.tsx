@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { getInventory, type InventoryItem } from "@/lib/inventory.functions";
+import { SteamImage } from "@/components/SteamImage";
 
 export const Route = createFileRoute("/inventory")({
   component: InventoryPage,
