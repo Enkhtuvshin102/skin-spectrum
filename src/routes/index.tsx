@@ -8,6 +8,7 @@ import { FilterPanel, Filters, defaultFilters } from "@/components/FilterPanel";
 import { FeaturedCarousel } from "@/components/FeaturedCarousel";
 import { Activity, Flame, Users } from "lucide-react";
 import { usePrices } from "@/hooks/use-prices";
+import { useSteamImages } from "@/hooks/use-steam-images";
 
 export const Route = createFileRoute("/")({
   component: Marketplace,
@@ -19,6 +20,7 @@ function Marketplace() {
   const [sort, setSort] = useState<"recent" | "price-asc" | "price-desc" | "float-asc">("recent");
 
   const { map: prices } = usePrices(SKINS.map((s) => s.marketHashName));
+  const { map: images } = useSteamImages(SKINS.map((s) => s.marketHashName));
 
   const filtered = useMemo(() => {
     const list = SKINS.filter((s) => {
@@ -88,7 +90,7 @@ function Marketplace() {
               className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4"
             >
               {filtered.map((s) => (
-                <SkinCard key={s.id} skin={s} price={prices.get(s.marketHashName)} onClick={() => setSelected(s)} />
+                <SkinCard key={s.id} skin={s} price={prices.get(s.marketHashName)} imageUrl={images.get(s.marketHashName)} onClick={() => setSelected(s)} />
               ))}
             </motion.div>
           )}

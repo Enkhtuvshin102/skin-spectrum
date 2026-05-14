@@ -2,9 +2,13 @@ import { motion } from "framer-motion";
 import { TrendingUp } from "lucide-react";
 import { Skin, formatPrice } from "@/lib/skins";
 import { usePrices } from "@/hooks/use-prices";
+import { useSteamImages } from "@/hooks/use-steam-images";
+import { SteamImage } from "./SteamImage";
 
 export function FeaturedCarousel({ skins, onSelect }: { skins: Skin[]; onSelect: (s: Skin) => void }) {
-  const { map } = usePrices(skins.map((s) => s.marketHashName));
+  const names = skins.map((s) => s.marketHashName);
+  const { map } = usePrices(names);
+  const { map: images } = useSteamImages(names);
   return (
     <div className="relative overflow-hidden rounded-2xl border border-border/60 glass-strong">
       <div className="absolute inset-0 grid-bg opacity-40" />
@@ -36,10 +40,14 @@ export function FeaturedCarousel({ skins, onSelect }: { skins: Skin[]; onSelect:
               className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card/60 p-3 text-left transition hover:border-primary"
             >
               <div className="flex aspect-square items-center justify-center">
-                <img
-                  src={s.image}
+                <SteamImage
+                  src={images.get(s.marketHashName)}
                   alt={s.skinName}
-                  className="h-full w-full object-contain transition group-hover:scale-110"
+                  loading={i === 0 ? "eager" : "lazy"}
+                  fetchpriority={i === 0 ? "high" : undefined}
+                  className="h-full w-full"
+                  imgClassName="transition group-hover:scale-110"
+                  sizes="(min-width: 768px) 16vw, 33vw"
                 />
               </div>
               <p className="mt-1 truncate text-[10px] font-mono uppercase text-muted-foreground">{s.weapon}</p>

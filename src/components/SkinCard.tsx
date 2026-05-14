@@ -3,6 +3,7 @@ import { ExternalLink, Heart } from "lucide-react";
 import { Skin, formatPrice, timeAgo, wearLabel } from "@/lib/skins";
 import type { SteamPriceData } from "@/lib/types";
 import { FloatBar } from "./FloatBar";
+import { SteamImage } from "./SteamImage";
 
 const rarityClass: Record<string, string> = {
   milspec: "from-rarity-milspec/40 to-transparent",
@@ -20,7 +21,7 @@ const rarityBar: Record<string, string> = {
   knife: "bg-rarity-knife",
 };
 
-export function SkinCard({ skin, price, onClick }: { skin: Skin; price?: SteamPriceData; onClick?: () => void }) {
+export function SkinCard({ skin, price, imageUrl, onClick }: { skin: Skin; price?: SteamPriceData; imageUrl?: string | null; onClick?: () => void }) {
   return (
     <motion.button
       onClick={onClick}
@@ -57,11 +58,12 @@ export function SkinCard({ skin, price, onClick }: { skin: Skin; price?: SteamPr
 
       {/* Image */}
       <div className="relative flex aspect-[5/3] items-center justify-center px-6 pt-6 pb-2">
-        <img
-          src={skin.image}
+        <SteamImage
+          src={imageUrl}
           alt={`${skin.weapon} ${skin.skinName}`}
-          loading="lazy"
-          className="h-full w-full object-contain drop-shadow-[0_8px_20px_rgba(0,0,0,0.6)] transition-transform duration-500 group-hover:scale-110 group-hover:rotate-[-2deg]"
+          className="h-full w-full"
+          imgClassName="drop-shadow-[0_8px_20px_rgba(0,0,0,0.6)] transition-transform duration-500 group-hover:scale-110 group-hover:rotate-[-2deg]"
+          sizes="(min-width: 1536px) 25vw, (min-width: 1280px) 33vw, (min-width: 640px) 50vw, 100vw"
         />
       </div>
 

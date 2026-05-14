@@ -4,15 +4,6 @@
 // NOTE: prices are NOT stored here — they are fetched live via src/lib/pricing.ts
 // and rendered through the usePrices() hook.
 
-import akRedline from "@/assets/skins/ak-redline.png";
-import awpDlore from "@/assets/skins/awp-dlore.png";
-import awpAsiimov from "@/assets/skins/awp-asiimov.png";
-import m4Howl from "@/assets/skins/m4-howl.png";
-import karambit from "@/assets/skins/karambit-doppler.png";
-import glockFade from "@/assets/skins/glock-fade.png";
-import deagleBlaze from "@/assets/skins/deagle-blaze.png";
-import uspKc from "@/assets/skins/usp-kc.png";
-
 export type Wear = "FN" | "MW" | "FT" | "WW" | "BS";
 export type Rarity =
   | "milspec" | "restricted" | "classified" | "covert" | "knife";
@@ -30,7 +21,7 @@ export interface Skin {
   weapon: string;
   weaponType: WeaponType;
   skinName: string;
-  image: string;
+  
   float: number;
   wear: Wear;
   pattern: number;
@@ -78,7 +69,7 @@ export const SKINS: Skin[] = [
   {
     id: "1", weapon: "AK-47", weaponType: "Rifle", skinName: "Redline",
     marketHashName: build("AK-47 | Redline", "FT", { statTrak: true }),
-    image: akRedline, float: 0.1832, wear: "FT", pattern: 661,
+float: 0.1832, wear: "FT", pattern: 661,
     stickers: stickers("Titan (Holo) | Katowice 2014", "iBUYPOWER (Holo) | Katowice 2014"),
     rarity: "classified", statTrak: true,
     inspectLink: "steam://rungame/730/76561202255233023/+csgo_econ_action_preview",
@@ -87,7 +78,7 @@ export const SKINS: Skin[] = [
   {
     id: "2", weapon: "AWP", weaponType: "Sniper", skinName: "Dragon Lore",
     marketHashName: build("AWP | Dragon Lore", "FN", { souvenir: true }),
-    image: awpDlore, float: 0.0421, wear: "FN", pattern: 420,
+float: 0.0421, wear: "FN", pattern: 420,
     stickers: stickers("Crown (Foil)", "Katowice 2014"),
     rarity: "covert", souvenir: true,
     inspectLink: "steam://rungame/730/76561202255233023/+csgo_econ_action_preview",
@@ -96,7 +87,7 @@ export const SKINS: Skin[] = [
   {
     id: "3", weapon: "AWP", weaponType: "Sniper", skinName: "Asiimov",
     marketHashName: build("AWP | Asiimov", "FT"),
-    image: awpAsiimov, float: 0.2412, wear: "FT", pattern: 87,
+float: 0.2412, wear: "FT", pattern: 87,
     stickers: stickers("FaZe Clan | Boston 2018"),
     rarity: "covert",
     inspectLink: "steam://rungame/730/76561202255233023/+csgo_econ_action_preview",
@@ -105,7 +96,7 @@ export const SKINS: Skin[] = [
   {
     id: "4", weapon: "M4A4", weaponType: "Rifle", skinName: "Howl",
     marketHashName: build("M4A4 | Howl", "FN"),
-    image: m4Howl, float: 0.0689, wear: "FN", pattern: 33,
+    float: 0.0689, wear: "FN", pattern: 33,
     stickers: [], rarity: "covert",
     inspectLink: "steam://rungame/730/76561202255233023/+csgo_econ_action_preview",
     seller: "ContrabandKing", listedAt: 45 * 60_000,
@@ -113,7 +104,7 @@ export const SKINS: Skin[] = [
   {
     id: "5", weapon: "★ Karambit", weaponType: "Knife", skinName: "Doppler",
     marketHashName: build("★ Karambit | Doppler", "FN", { statTrak: true }),
-    image: karambit, float: 0.0098, wear: "FN", pattern: 387,
+float: 0.0098, wear: "FN", pattern: 387,
     stickers: [], rarity: "knife", statTrak: true,
     inspectLink: "steam://rungame/730/76561202255233023/+csgo_econ_action_preview",
     seller: "BlueGemHunter", listedAt: 30 * 60_000,
@@ -121,7 +112,7 @@ export const SKINS: Skin[] = [
   {
     id: "6", weapon: "Glock-18", weaponType: "Pistol", skinName: "Fade",
     marketHashName: build("Glock-18 | Fade", "FN"),
-    image: glockFade, float: 0.0125, wear: "FN", pattern: 901,
+float: 0.0125, wear: "FN", pattern: 901,
     stickers: stickers("Astralis | Berlin 2019"),
     rarity: "restricted",
     inspectLink: "steam://rungame/730/76561202255233023/+csgo_econ_action_preview",
@@ -130,7 +121,7 @@ export const SKINS: Skin[] = [
   {
     id: "7", weapon: "Desert Eagle", weaponType: "Pistol", skinName: "Blaze",
     marketHashName: build("Desert Eagle | Blaze", "FN"),
-    image: deagleBlaze, float: 0.0312, wear: "FN", pattern: 12,
+float: 0.0312, wear: "FN", pattern: 12,
     stickers: [], rarity: "restricted",
     inspectLink: "steam://rungame/730/76561202255233023/+csgo_econ_action_preview",
     seller: "RetroSkins", listedAt: 6 * 60 * 60_000,
@@ -138,7 +129,7 @@ export const SKINS: Skin[] = [
   {
     id: "8", weapon: "USP-S", weaponType: "Pistol", skinName: "Kill Confirmed",
     marketHashName: build("USP-S | Kill Confirmed", "FT", { statTrak: true }),
-    image: uspKc, float: 0.1923, wear: "FT", pattern: 504,
+float: 0.1923, wear: "FT", pattern: 504,
     stickers: stickers("NaVi (Holo) | Stockholm 2021", "s1mple | Stockholm 2021"),
     rarity: "covert", statTrak: true,
     inspectLink: "steam://rungame/730/76561202255233023/+csgo_econ_action_preview",
@@ -147,28 +138,28 @@ export const SKINS: Skin[] = [
   {
     id: "9", weapon: "AK-47", weaponType: "Rifle", skinName: "Redline",
     marketHashName: build("AK-47 | Redline", "FT"),
-    image: akRedline, float: 0.3812, wear: "FT", pattern: 102,
+float: 0.3812, wear: "FT", pattern: 102,
     stickers: [], rarity: "classified",
     inspectLink: "#", seller: "QuickFlip", listedAt: 60_000,
   },
   {
     id: "10", weapon: "AWP", weaponType: "Sniper", skinName: "Asiimov",
     marketHashName: build("AWP | Asiimov", "WW"),
-    image: awpAsiimov, float: 0.4421, wear: "WW", pattern: 211,
+float: 0.4421, wear: "WW", pattern: 211,
     stickers: [], rarity: "covert",
     inspectLink: "#", seller: "BudgetSkins", listedAt: 9 * 60_000,
   },
   {
     id: "11", weapon: "Glock-18", weaponType: "Pistol", skinName: "Fade",
     marketHashName: build("Glock-18 | Fade", "FN"),
-    image: glockFade, float: 0.0312, wear: "FN", pattern: 412,
+float: 0.0312, wear: "FN", pattern: 412,
     stickers: stickers("Vitality (Holo)"), rarity: "restricted",
     inspectLink: "#", seller: "EuroTrader", listedAt: 22 * 60_000,
   },
   {
     id: "12", weapon: "★ Karambit", weaponType: "Knife", skinName: "Doppler",
     marketHashName: build("★ Karambit | Doppler", "FN"),
-    image: karambit, float: 0.0231, wear: "FN", pattern: 102,
+float: 0.0231, wear: "FN", pattern: 102,
     stickers: [], rarity: "knife",
     inspectLink: "#", seller: "KnifeVault", listedAt: 90 * 60_000,
   },
