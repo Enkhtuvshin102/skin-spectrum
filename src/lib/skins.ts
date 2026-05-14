@@ -69,7 +69,7 @@ export const SKINS: Skin[] = [
   {
     id: "1", weapon: "AK-47", weaponType: "Rifle", skinName: "Redline",
     marketHashName: build("AK-47 | Redline", "FT", { statTrak: true }),
-    image: akRedline, float: 0.1832, wear: "FT", pattern: 661,
+float: 0.1832, wear: "FT", pattern: 661,
     stickers: stickers("Titan (Holo) | Katowice 2014", "iBUYPOWER (Holo) | Katowice 2014"),
     rarity: "classified", statTrak: true,
     inspectLink: "steam://rungame/730/76561202255233023/+csgo_econ_action_preview",
@@ -78,7 +78,7 @@ export const SKINS: Skin[] = [
   {
     id: "2", weapon: "AWP", weaponType: "Sniper", skinName: "Dragon Lore",
     marketHashName: build("AWP | Dragon Lore", "FN", { souvenir: true }),
-    image: awpDlore, float: 0.0421, wear: "FN", pattern: 420,
+float: 0.0421, wear: "FN", pattern: 420,
     stickers: stickers("Crown (Foil)", "Katowice 2014"),
     rarity: "covert", souvenir: true,
     inspectLink: "steam://rungame/730/76561202255233023/+csgo_econ_action_preview",
@@ -87,7 +87,7 @@ export const SKINS: Skin[] = [
   {
     id: "3", weapon: "AWP", weaponType: "Sniper", skinName: "Asiimov",
     marketHashName: build("AWP | Asiimov", "FT"),
-    image: awpAsiimov, float: 0.2412, wear: "FT", pattern: 87,
+float: 0.2412, wear: "FT", pattern: 87,
     stickers: stickers("FaZe Clan | Boston 2018"),
     rarity: "covert",
     inspectLink: "steam://rungame/730/76561202255233023/+csgo_econ_action_preview",
@@ -104,7 +104,7 @@ export const SKINS: Skin[] = [
   {
     id: "5", weapon: "★ Karambit", weaponType: "Knife", skinName: "Doppler",
     marketHashName: build("★ Karambit | Doppler", "FN", { statTrak: true }),
-    image: karambit, float: 0.0098, wear: "FN", pattern: 387,
+float: 0.0098, wear: "FN", pattern: 387,
     stickers: [], rarity: "knife", statTrak: true,
     inspectLink: "steam://rungame/730/76561202255233023/+csgo_econ_action_preview",
     seller: "BlueGemHunter", listedAt: 30 * 60_000,
@@ -112,7 +112,7 @@ export const SKINS: Skin[] = [
   {
     id: "6", weapon: "Glock-18", weaponType: "Pistol", skinName: "Fade",
     marketHashName: build("Glock-18 | Fade", "FN"),
-    image: glockFade, float: 0.0125, wear: "FN", pattern: 901,
+float: 0.0125, wear: "FN", pattern: 901,
     stickers: stickers("Astralis | Berlin 2019"),
     rarity: "restricted",
     inspectLink: "steam://rungame/730/76561202255233023/+csgo_econ_action_preview",
@@ -121,7 +121,7 @@ export const SKINS: Skin[] = [
   {
     id: "7", weapon: "Desert Eagle", weaponType: "Pistol", skinName: "Blaze",
     marketHashName: build("Desert Eagle | Blaze", "FN"),
-    image: deagleBlaze, float: 0.0312, wear: "FN", pattern: 12,
+float: 0.0312, wear: "FN", pattern: 12,
     stickers: [], rarity: "restricted",
     inspectLink: "steam://rungame/730/76561202255233023/+csgo_econ_action_preview",
     seller: "RetroSkins", listedAt: 6 * 60 * 60_000,
@@ -129,7 +129,7 @@ export const SKINS: Skin[] = [
   {
     id: "8", weapon: "USP-S", weaponType: "Pistol", skinName: "Kill Confirmed",
     marketHashName: build("USP-S | Kill Confirmed", "FT", { statTrak: true }),
-    image: uspKc, float: 0.1923, wear: "FT", pattern: 504,
+float: 0.1923, wear: "FT", pattern: 504,
     stickers: stickers("NaVi (Holo) | Stockholm 2021", "s1mple | Stockholm 2021"),
     rarity: "covert", statTrak: true,
     inspectLink: "steam://rungame/730/76561202255233023/+csgo_econ_action_preview",
@@ -138,28 +138,28 @@ export const SKINS: Skin[] = [
   {
     id: "9", weapon: "AK-47", weaponType: "Rifle", skinName: "Redline",
     marketHashName: build("AK-47 | Redline", "FT"),
-    image: akRedline, float: 0.3812, wear: "FT", pattern: 102,
+float: 0.3812, wear: "FT", pattern: 102,
     stickers: [], rarity: "classified",
     inspectLink: "#", seller: "QuickFlip", listedAt: 60_000,
   },
   {
     id: "10", weapon: "AWP", weaponType: "Sniper", skinName: "Asiimov",
     marketHashName: build("AWP | Asiimov", "WW"),
-    image: awpAsiimov, float: 0.4421, wear: "WW", pattern: 211,
+float: 0.4421, wear: "WW", pattern: 211,
     stickers: [], rarity: "covert",
     inspectLink: "#", seller: "BudgetSkins", listedAt: 9 * 60_000,
   },
   {
     id: "11", weapon: "Glock-18", weaponType: "Pistol", skinName: "Fade",
     marketHashName: build("Glock-18 | Fade", "FN"),
-    image: glockFade, float: 0.0312, wear: "FN", pattern: 412,
+float: 0.0312, wear: "FN", pattern: 412,
     stickers: stickers("Vitality (Holo)"), rarity: "restricted",
     inspectLink: "#", seller: "EuroTrader", listedAt: 22 * 60_000,
   },
   {
     id: "12", weapon: "★ Karambit", weaponType: "Knife", skinName: "Doppler",
     marketHashName: build("★ Karambit | Doppler", "FN"),
-    image: karambit, float: 0.0231, wear: "FN", pattern: 102,
+float: 0.0231, wear: "FN", pattern: 102,
     stickers: [], rarity: "knife",
     inspectLink: "#", seller: "KnifeVault", listedAt: 90 * 60_000,
   },
