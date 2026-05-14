@@ -29,7 +29,7 @@ function WatchlistPage() {
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
         {watch.map((s) => (
-          <SkinCard key={s.id} skin={s} price={prices.get(s.marketHashName)} onClick={() => setSelected(s)} />
+          <SkinCard key={s.id} skin={s} price={prices.get(s.marketHashName)} imageUrl={images.get(s.marketHashName)} onClick={() => setSelected(s)} />
         ))}
       </div>
 
