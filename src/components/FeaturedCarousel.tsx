@@ -2,9 +2,13 @@ import { motion } from "framer-motion";
 import { TrendingUp } from "lucide-react";
 import { Skin, formatPrice } from "@/lib/skins";
 import { usePrices } from "@/hooks/use-prices";
+import { useSteamImages } from "@/hooks/use-steam-images";
+import { SteamImage } from "./SteamImage";
 
 export function FeaturedCarousel({ skins, onSelect }: { skins: Skin[]; onSelect: (s: Skin) => void }) {
-  const { map } = usePrices(skins.map((s) => s.marketHashName));
+  const names = skins.map((s) => s.marketHashName);
+  const { map } = usePrices(names);
+  const { map: images } = useSteamImages(names);
   return (
     <div className="relative overflow-hidden rounded-2xl border border-border/60 glass-strong">
       <div className="absolute inset-0 grid-bg opacity-40" />
