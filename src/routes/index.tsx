@@ -8,6 +8,7 @@ import { FilterPanel, Filters, defaultFilters } from "@/components/FilterPanel";
 import { FeaturedCarousel } from "@/components/FeaturedCarousel";
 import { Activity, Flame, Users } from "lucide-react";
 import { usePrices } from "@/hooks/use-prices";
+import { useSteamImages } from "@/hooks/use-steam-images";
 
 export const Route = createFileRoute("/")({
   component: Marketplace,
