@@ -2,11 +2,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ExternalLink, Heart, ShoppingCart } from "lucide-react";
 import { Skin, formatPrice, wearLabel } from "@/lib/skins";
 import { FloatBar } from "./FloatBar";
+import { SteamImage } from "./SteamImage";
 import { usePrices } from "@/hooks/use-prices";
+import { useSteamImages } from "@/hooks/use-steam-images";
 
 export function InspectModal({ skin, onClose }: { skin: Skin | null; onClose: () => void }) {
-  const { map } = usePrices(skin ? [skin.marketHashName] : []);
+  const names = skin ? [skin.marketHashName] : [];
+  const { map } = usePrices(names);
+  const { map: images } = useSteamImages(names);
   const price = skin ? map.get(skin.marketHashName) : undefined;
+  const imageUrl = skin ? images.get(skin.marketHashName) : null;
   return (
     <AnimatePresence>
       {skin && (
