@@ -5,6 +5,7 @@ import { SKINS, Skin } from "@/lib/skins";
 import { SkinCard } from "@/components/SkinCard";
 import { InspectModal } from "@/components/InspectModal";
 import { usePrices } from "@/hooks/use-prices";
+import { useSteamImages } from "@/hooks/use-steam-images";
 
 export const Route = createFileRoute("/watchlist")({
   component: WatchlistPage,
