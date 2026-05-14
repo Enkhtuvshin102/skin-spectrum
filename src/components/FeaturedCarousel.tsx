@@ -40,10 +40,14 @@ export function FeaturedCarousel({ skins, onSelect }: { skins: Skin[]; onSelect:
               className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card/60 p-3 text-left transition hover:border-primary"
             >
               <div className="flex aspect-square items-center justify-center">
-                <img
-                  src={s.image}
+                <SteamImage
+                  src={images.get(s.marketHashName)}
                   alt={s.skinName}
-                  className="h-full w-full object-contain transition group-hover:scale-110"
+                  loading={i === 0 ? "eager" : "lazy"}
+                  fetchpriority={i === 0 ? "high" : undefined}
+                  className="h-full w-full"
+                  imgClassName="transition group-hover:scale-110"
+                  sizes="(min-width: 768px) 16vw, 33vw"
                 />
               </div>
               <p className="mt-1 truncate text-[10px] font-mono uppercase text-muted-foreground">{s.weapon}</p>
