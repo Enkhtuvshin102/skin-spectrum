@@ -285,7 +285,7 @@ function InspectModal({ item, onClose }: { item: InventoryItem | null; onClose: 
           >
             <div className="relative flex aspect-[5/3] items-center justify-center grid-bg p-10 md:aspect-auto">
               <div className="absolute inset-0 bg-gradient-to-br from-neon-purple/20 via-transparent to-neon-blue/20" />
-              <img src={item.image} alt={item.name} className="relative max-h-[420px] w-full object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.7)] animate-float" />
+              <SteamImage src={item.image} alt={item.name} loading="eager" fetchpriority="high" className="relative max-h-[420px] w-full animate-float" imgClassName="drop-shadow-[0_20px_40px_rgba(0,0,0,0.7)]" />
             </div>
 
             <div className="flex flex-col gap-4 p-6 md:p-8">
