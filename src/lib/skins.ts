@@ -96,7 +96,7 @@ float: 0.2412, wear: "FT", pattern: 87,
   {
     id: "4", weapon: "M4A4", weaponType: "Rifle", skinName: "Howl",
     marketHashName: build("M4A4 | Howl", "FN"),
-    image: m4Howl, float: 0.0689, wear: "FN", pattern: 33,
+    float: 0.0689, wear: "FN", pattern: 33,
     stickers: [], rarity: "covert",
     inspectLink: "steam://rungame/730/76561202255233023/+csgo_econ_action_preview",
     seller: "ContrabandKing", listedAt: 45 * 60_000,
