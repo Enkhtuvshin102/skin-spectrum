@@ -175,11 +175,12 @@ function ItemCard({ item, onClick }: { item: InventoryItem; onClick: () => void 
         style={{ backgroundColor: item.rarityColorHex ?? "var(--primary)" }}
       />
       <div className="flex flex-1 items-center justify-center">
-        <img
+        <SteamImage
           src={item.image}
           alt={item.name}
-          loading="lazy"
-          className="max-h-full max-w-full object-contain transition group-hover:scale-110"
+          className="h-full w-full"
+          imgClassName="transition group-hover:scale-110"
+          sizes="(min-width: 1280px) 16vw, (min-width: 640px) 25vw, 50vw"
         />
       </div>
       <div>
