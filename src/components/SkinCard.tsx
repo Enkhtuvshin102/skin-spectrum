@@ -20,7 +20,7 @@ const rarityBar: Record<string, string> = {
   knife: "bg-rarity-knife",
 };
 
-export function SkinCard({ skin, price, onClick }: { skin: Skin; price?: SteamPriceData; onClick?: () => void }) {
+export function SkinCard({ skin, price, imageUrl, onClick }: { skin: Skin; price?: SteamPriceData; imageUrl?: string | null; onClick?: () => void }) {
   return (
     <motion.button
       onClick={onClick}
