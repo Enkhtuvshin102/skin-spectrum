@@ -207,7 +207,7 @@ export const createListing = createServerFn({ method: "POST" })
       rarity: item.rarity,
       rarity_color_hex: item.rarityColorHex,
       image: item.image,
-      stickers: item.stickers,
+      stickers: item.stickers as unknown as never,
       inspect_link: item.inspectLink,
       stat_trak: item.statTrak,
       souvenir: item.souvenir,
