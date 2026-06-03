@@ -95,6 +95,13 @@ export type Database = {
             referencedRelation: "seller_profiles"
             referencedColumns: ["steam_id"]
           },
+          {
+            foreignKeyName: "listings_steam_id_fkey"
+            columns: ["steam_id"]
+            isOneToOne: false
+            referencedRelation: "seller_profiles_public"
+            referencedColumns: ["steam_id"]
+          },
         ]
       }
       seller_profiles: {
@@ -129,7 +136,33 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      seller_profiles_public: {
+        Row: {
+          avatar: string | null
+          created_at: string | null
+          persona_name: string | null
+          profile_url: string | null
+          steam_id: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          avatar?: string | null
+          created_at?: string | null
+          persona_name?: string | null
+          profile_url?: string | null
+          steam_id?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          avatar?: string | null
+          created_at?: string | null
+          persona_name?: string | null
+          profile_url?: string | null
+          steam_id?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never
