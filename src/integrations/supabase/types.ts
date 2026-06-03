@@ -134,6 +134,62 @@ export type Database = {
         }
         Relationships: []
       }
+      trade_requests: {
+        Row: {
+          buyer_message: string | null
+          buyer_steam_id: string
+          buyer_trade_url: string | null
+          completed_at: string | null
+          confirmed_at: string | null
+          created_at: string
+          id: string
+          listing_id: string
+          price_cents: number
+          seller_steam_id: string
+          seller_trade_url: string | null
+          status: Database["public"]["Enums"]["trade_status"]
+          updated_at: string
+        }
+        Insert: {
+          buyer_message?: string | null
+          buyer_steam_id: string
+          buyer_trade_url?: string | null
+          completed_at?: string | null
+          confirmed_at?: string | null
+          created_at?: string
+          id?: string
+          listing_id: string
+          price_cents: number
+          seller_steam_id: string
+          seller_trade_url?: string | null
+          status?: Database["public"]["Enums"]["trade_status"]
+          updated_at?: string
+        }
+        Update: {
+          buyer_message?: string | null
+          buyer_steam_id?: string
+          buyer_trade_url?: string | null
+          completed_at?: string | null
+          confirmed_at?: string | null
+          created_at?: string
+          id?: string
+          listing_id?: string
+          price_cents?: number
+          seller_steam_id?: string
+          seller_trade_url?: string | null
+          status?: Database["public"]["Enums"]["trade_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trade_requests_listing_id_fkey"
+            columns: ["listing_id"]
+            isOneToOne: false
+            referencedRelation: "listings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       seller_profiles_public: {
@@ -169,6 +225,12 @@ export type Database = {
     }
     Enums: {
       listing_status: "active" | "unavailable" | "removed" | "sold"
+      trade_status:
+        | "pending"
+        | "confirmed"
+        | "completed"
+        | "declined"
+        | "cancelled"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -297,6 +359,13 @@ export const Constants = {
   public: {
     Enums: {
       listing_status: ["active", "unavailable", "removed", "sold"],
+      trade_status: [
+        "pending",
+        "confirmed",
+        "completed",
+        "declined",
+        "cancelled",
+      ],
     },
   },
 } as const

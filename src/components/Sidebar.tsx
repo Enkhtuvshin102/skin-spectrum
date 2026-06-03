@@ -1,9 +1,12 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Store, Package, Heart, History, Trophy, Sparkles, Settings, LogIn, LogOut } from "lucide-react";
+import { Store, Package, Heart, History, Tag, ListChecks, Repeat, Sparkles, Settings, LogIn, LogOut } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 
 const items = [
   { to: "/", label: "Marketplace", icon: Store },
+  { to: "/sell", label: "Sell", icon: Tag },
+  { to: "/my-listings", label: "My Listings", icon: ListChecks },
+  { to: "/trades", label: "Trades", icon: Repeat },
   { to: "/inventory", label: "Inventory", icon: Package },
   { to: "/watchlist", label: "Watchlist", icon: Heart },
   { to: "/history", label: "Trade History", icon: History },
@@ -55,14 +58,16 @@ export function Sidebar() {
         </ul>
 
         <p className="mt-6 px-3 pb-2 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
-          Coming Soon
+          Account
         </p>
         <ul className="space-y-1">
-          <li className="flex cursor-not-allowed items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-muted-foreground/50">
-            <Trophy className="h-4 w-4" /> Tournaments
-          </li>
-          <li className="flex cursor-not-allowed items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-muted-foreground/50">
-            <Settings className="h-4 w-4" /> Settings
+          <li>
+            <Link
+              to="/settings"
+              className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground transition hover:bg-secondary/60 hover:text-foreground"
+            >
+              <Settings className="h-4 w-4" /> Settings
+            </Link>
           </li>
         </ul>
       </nav>
