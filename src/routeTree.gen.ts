@@ -10,6 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WatchlistRouteImport } from './routes/watchlist'
+import { Route as TradesRouteImport } from './routes/trades'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as SellRouteImport } from './routes/sell'
+import { Route as MyListingsRouteImport } from './routes/my-listings'
 import { Route as InventoryRouteImport } from './routes/inventory'
 import { Route as HistoryRouteImport } from './routes/history'
 import { Route as IndexRouteImport } from './routes/index'
@@ -21,6 +25,26 @@ import { Route as ApiAuthSteamCallbackRouteImport } from './routes/api/auth/stea
 const WatchlistRoute = WatchlistRouteImport.update({
   id: '/watchlist',
   path: '/watchlist',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TradesRoute = TradesRouteImport.update({
+  id: '/trades',
+  path: '/trades',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SellRoute = SellRouteImport.update({
+  id: '/sell',
+  path: '/sell',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MyListingsRoute = MyListingsRouteImport.update({
+  id: '/my-listings',
+  path: '/my-listings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InventoryRoute = InventoryRouteImport.update({
@@ -64,6 +88,10 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/history': typeof HistoryRoute
   '/inventory': typeof InventoryRoute
+  '/my-listings': typeof MyListingsRoute
+  '/sell': typeof SellRoute
+  '/settings': typeof SettingsRoute
+  '/trades': typeof TradesRoute
   '/watchlist': typeof WatchlistRoute
   '/api/auth/logout': typeof ApiAuthLogoutRoute
   '/api/auth/steam': typeof ApiAuthSteamRouteWithChildren
@@ -74,6 +102,10 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/history': typeof HistoryRoute
   '/inventory': typeof InventoryRoute
+  '/my-listings': typeof MyListingsRoute
+  '/sell': typeof SellRoute
+  '/settings': typeof SettingsRoute
+  '/trades': typeof TradesRoute
   '/watchlist': typeof WatchlistRoute
   '/api/auth/logout': typeof ApiAuthLogoutRoute
   '/api/auth/steam': typeof ApiAuthSteamRouteWithChildren
@@ -85,6 +117,10 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/history': typeof HistoryRoute
   '/inventory': typeof InventoryRoute
+  '/my-listings': typeof MyListingsRoute
+  '/sell': typeof SellRoute
+  '/settings': typeof SettingsRoute
+  '/trades': typeof TradesRoute
   '/watchlist': typeof WatchlistRoute
   '/api/auth/logout': typeof ApiAuthLogoutRoute
   '/api/auth/steam': typeof ApiAuthSteamRouteWithChildren
@@ -97,6 +133,10 @@ export interface FileRouteTypes {
     | '/'
     | '/history'
     | '/inventory'
+    | '/my-listings'
+    | '/sell'
+    | '/settings'
+    | '/trades'
     | '/watchlist'
     | '/api/auth/logout'
     | '/api/auth/steam'
@@ -107,6 +147,10 @@ export interface FileRouteTypes {
     | '/'
     | '/history'
     | '/inventory'
+    | '/my-listings'
+    | '/sell'
+    | '/settings'
+    | '/trades'
     | '/watchlist'
     | '/api/auth/logout'
     | '/api/auth/steam'
@@ -117,6 +161,10 @@ export interface FileRouteTypes {
     | '/'
     | '/history'
     | '/inventory'
+    | '/my-listings'
+    | '/sell'
+    | '/settings'
+    | '/trades'
     | '/watchlist'
     | '/api/auth/logout'
     | '/api/auth/steam'
@@ -128,6 +176,10 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   HistoryRoute: typeof HistoryRoute
   InventoryRoute: typeof InventoryRoute
+  MyListingsRoute: typeof MyListingsRoute
+  SellRoute: typeof SellRoute
+  SettingsRoute: typeof SettingsRoute
+  TradesRoute: typeof TradesRoute
   WatchlistRoute: typeof WatchlistRoute
   ApiAuthLogoutRoute: typeof ApiAuthLogoutRoute
   ApiAuthSteamRoute: typeof ApiAuthSteamRouteWithChildren
@@ -141,6 +193,34 @@ declare module '@tanstack/react-router' {
       path: '/watchlist'
       fullPath: '/watchlist'
       preLoaderRoute: typeof WatchlistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trades': {
+      id: '/trades'
+      path: '/trades'
+      fullPath: '/trades'
+      preLoaderRoute: typeof TradesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sell': {
+      id: '/sell'
+      path: '/sell'
+      fullPath: '/sell'
+      preLoaderRoute: typeof SellRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-listings': {
+      id: '/my-listings'
+      path: '/my-listings'
+      fullPath: '/my-listings'
+      preLoaderRoute: typeof MyListingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/inventory': {
@@ -211,6 +291,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HistoryRoute: HistoryRoute,
   InventoryRoute: InventoryRoute,
+  MyListingsRoute: MyListingsRoute,
+  SellRoute: SellRoute,
+  SettingsRoute: SettingsRoute,
+  TradesRoute: TradesRoute,
   WatchlistRoute: WatchlistRoute,
   ApiAuthLogoutRoute: ApiAuthLogoutRoute,
   ApiAuthSteamRoute: ApiAuthSteamRouteWithChildren,
@@ -219,3 +303,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
